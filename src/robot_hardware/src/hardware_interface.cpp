@@ -87,7 +87,7 @@ hardware_interface::return_type RobotHardware::read(
 
       if(sscanf(line.c_str(),"E %d %d %d %d",&lf,&lr,&rf,&rr) == 4)
       {
-        double ticks_per_rev = 375.0;
+        double ticks_per_rev = 2500.0;
 
         double lf_rad = (lf / ticks_per_rev) * 2 * M_PI;
         double lr_rad = (lr / ticks_per_rev) * 2 * M_PI;

@@ -41,8 +41,8 @@ public:
 private:
 
   LibSerial::SerialPort serial_port;
-  double wheel_radius = 0.05;
-  double wheel_separation = 0.43;
+  double wheel_radius = 0.035;
+  double wheel_separation = 0.305;
 
   std::vector<double> prev_pos_;
   std::vector<double> hw_positions_;

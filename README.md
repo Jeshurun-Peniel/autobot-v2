@@ -1,4 +1,5 @@
 # AUTOBOT
+
 ## Installation and Initial Setup
 
 ### 1. Prerequisites
@@ -9,6 +10,7 @@ AutoBot V2 is developed and tested with:
 * **ROS 2 Jazzy Jalisco**
 * **Git**
 * **colcon** build tools
+* **LibSerial**
 
 ---
 
@@ -20,13 +22,13 @@ https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html
 
 After installation, source ROS 2:
 
-```bash id="v12agc"
+```bash
 source /opt/ros/jazzy/setup.bash
 ```
 
 To automatically source ROS 2 whenever a new terminal is opened:
 
-```bash id="myvm86"
+```bash
 echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
@@ -45,14 +47,14 @@ Both devices must:
 
 Set the ROS 2 communication parameters:
 
-```bash id="mb8kva"
+```bash
 export ROS_DOMAIN_ID=1
 export ROS_LOCALHOST_ONLY=0
 ```
 
 To make these settings permanent:
 
-```bash id="6d92o8"
+```bash
 echo "export ROS_DOMAIN_ID=1" >> ~/.bashrc
 echo "export ROS_LOCALHOST_ONLY=0" >> ~/.bashrc
 source ~/.bashrc
@@ -64,38 +66,66 @@ source ~/.bashrc
 
 ## Quick Setup
 
-Once ROS 2 Jazzy is installed, create a workspace and clone the repository:
+Once ROS 2 Jazzy is installed, install the required system dependencies:
 
-```bash id="aw8ij4"
+```bash
+sudo apt update
+sudo apt install -y \
+  git \
+  python3-colcon-common-extensions \
+  python3-rosdep \
+  libserial-dev
+```
+
+Initialize `rosdep` if it has not already been initialized:
+
+```bash
+sudo rosdep init
+rosdep update
+```
+
+> If `rosdep` has already been initialized, skip `sudo rosdep init` and run only `rosdep update`.
+
+### Clone the Repository
+
+Create a ROS 2 workspace and clone the repository:
+
+```bash
 mkdir -p ~/autobot_ws/src
 cd ~/autobot_ws/src
 
 git clone https://github.com/Jeshurun-Peniel/autobot-v2.git
 ```
 
-Install the required dependencies:
+### Install ROS 2 Dependencies
 
-```bash id="1h8ndj"
+Move to the workspace root:
+
+```bash
 cd ~/autobot_ws
+```
 
+Install all required ROS 2 package dependencies:
+
+```bash
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
-Build the workspace:
+### Build the Workspace
 
-```bash id="9ytc0w"
+```bash
 colcon build --symlink-install
 ```
 
-Source the workspace:
+### Source the Workspace
 
-```bash id="veoqgi"
+```bash
 source install/setup.bash
 ```
 
-To automatically source the workspace in every new terminal:
+To automatically source the workspace whenever a new terminal is opened:
 
-```bash id="n5jdgx"
+```bash
 echo "source ~/autobot_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
